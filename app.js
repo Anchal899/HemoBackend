@@ -101,13 +101,13 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:3000',  // Frontend origin
+    origin: 'https://hemo-frontend.vercel.app',  // Frontend origin
     credentials: true,  // Allow credentials (cookies, authentication)
 }));
 
 // Handle preflight (OPTIONS) requests
 app.options('*', cors({
-    origin: 'http://localhost:3000',  // Frontend origin
+    origin: 'https://hemo-frontend.vercel.app',  // Frontend origin
     credentials: true,
 }));
 
