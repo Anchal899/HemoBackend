@@ -90,9 +90,10 @@ router.get("/logout", (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "none",
+            expires: new Date(0) // Ensures the cookie is immediately expired
         })
         .send();
-    console.log("Logged Out")
+    console.log("Logged Out");
 });
 
 router.get("/loggedIn", async (req, res) => {

@@ -73,17 +73,20 @@ router.get("/requests", auth, async (req, res) => {
 router.put("/", auth, async (req, res) => {
     try {
         console.log(req.user);
-        User.updateOne({ _id: req.user }, req.body, (err, user) => {
-            if (err) {
-                res.send(404, "User not found");
-            } else {
-                res.send(200, "User updated");
-            }
-        });
+
+        // Use async/await with updateOne
+        const result = await User.updateOne({ _id: req.user }, req.body);
+
+        if (result.nModified === 0) {
+            return res.status(404).send("User not found");
+        }
+
+        res.status(200).send("User updated");
     } catch (err) {
         console.error(err);
-        res.status(500).send();
+        res.status(500).send("Server error");
     }
 });
+
 
 module.exports = router;

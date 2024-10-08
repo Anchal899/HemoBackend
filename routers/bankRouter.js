@@ -120,18 +120,27 @@ router.get("/requests", auth, async (req, res) => {
 
 router.put("/", auth, async (req, res) => {
     try {
-        console.log(req.user);
-        BloodBank.updateOne({ _id: req.user }, req.body, (err, user) => {
-            if (err) {
-                res.status(404).send("BloodBank not found");
-            } else {
-                res.status(200).send("BloodBank updated");
-            }
-        });
+        console.log(req.user); // Log the user object for debugging
+
+        // Assuming req.user is the user object and has the _id property
+        const bloodBankId = req.user._id; // Adjust this line based on the actual structure of req.user
+
+        const result = await BloodBank.updateOne(
+            { _id: bloodBankId }, // Query filter
+            req.body // Update data
+        );
+
+        if (result.nModified === 0) {
+            // No documents were modified
+            return res.status(404).send("BloodBank not found or no changes made");
+        }
+
+        res.status(200).send("BloodBank updated");
     } catch (err) {
         console.error(err);
-        res.status(500).send();
+        res.status(500).send("Internal Server Error");
     }
 });
+
 
 module.exports = router;

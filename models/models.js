@@ -104,6 +104,13 @@ const BloodBank = mongoose.model('BloodBanks', bloodBankSchema);
 
 // Create schema for Camps
 const campSchema = new mongoose.Schema({
+   _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: function() {
+      return new mongoose.Types.ObjectId(); // Automatically assign a new ObjectId if not provided
+    },
+    required: true, // Ensure that _id is required
+  },
     name: { type: String, required: true },
     date: { type: Date, required: true },
     address: { type: String, required: true },
