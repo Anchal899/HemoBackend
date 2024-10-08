@@ -133,6 +133,9 @@ async function connectDB() {
 connectDB();
 
 // Routers
+app.get('/',(req,res)=>{
+  res.send("Hello World");
+})
 app.use('/auth', require('./routers/authRouter'));
 app.use('/user', require('./routers/userRouter'));
 app.use('/bank', require('./routers/bankRouter'));
